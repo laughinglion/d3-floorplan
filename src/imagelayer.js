@@ -17,8 +17,15 @@
 d3.floorplan.imagelayer = function() {
 	var x = d3.scale.linear(),
 	y = d3.scale.linear(),
-	id = "fp-imagelayer-" + new Date().valueOf(),
-	name = "imagelayer";
+	name = "imagelayer",
+	vis = true;
+
+	if(typeof d3.floorplan.imagelayer.prototype.__id == "undefined") {
+		d3.floorplan.imagelayer.prototype.__id = 0;
+	}
+	var id = "fp-imagelayer-"
+		+ new Date().valueOf()
+		+ d3.floorplan.imagelayer.prototype.__id++;
 	
 	function images(g) {
 		g.each(function(data) {
@@ -68,6 +75,12 @@ d3.floorplan.imagelayer = function() {
 	images.title = function(n) {
 		if (! arguments.length) return name;
 		name = n;
+		return images;
+	};
+
+	images.visible = function(v) {
+		if (! arguments.length) return vis;
+		vis = v;
 		return images;
 	};
 

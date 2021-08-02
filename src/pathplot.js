@@ -78,6 +78,12 @@ d3.floorplan.pathplot = function() {
 		pointFilter = fn;
 		return pathplot;
 	};
+
+	pathplot.visible = function(v) {
+		if (! arguments.length) return vis;
+		vis = v;
+		return pathplot;
+	};
 	
 	return pathplot;
 };

@@ -23,8 +23,15 @@ d3.floorplan.heatmap = function() {
 		.x(function(d) { return x(d.x); })
 		.y(function(d) { return y(d.y); }),
 	format = d3.format(".4n"),
-	id = "fp-heatmap-" + new Date().valueOf(),
-	name = "heatmap";
+	name = "heatmap",
+	vis = true;
+
+	if(typeof d3.floorplan.heatmap.prototype.__id == "undefined") {
+		d3.floorplan.heatmap.prototype.__id = 0;
+	}
+	var id = "fp-heatmap-"
+		+ new Date().valueOf()
+		+ d3.floorplan.heatmap.prototype.__id++;
 
 	function heatmap(g) {
 		g.each(function(data) {
@@ -203,6 +210,12 @@ d3.floorplan.heatmap = function() {
 	heatmap.title = function(n) {
 		if (! arguments.length) return name;
 		name = n;
+		return heatmap;
+	};
+
+	heatmap.visible = function(v) {
+		if (! arguments.length) return vis;
+		vis = v;
 		return heatmap;
 	};
 	
